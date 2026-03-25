@@ -1,13 +1,14 @@
-echo Updating the server
-sudo apt-get update
+#!/bin/bash
 
-echo Installing pip
-sudo apt install python3-pip -y
+echo "Updating the server"
+sudo apt-get update -y
 
-echo Installing virtual environment and packages
-cd LiveTradingBots/code
-sudo apt-get install python3-venv
+echo "Installing pip and venv"
+sudo apt-get install -y python3-pip python3-venv
+
+echo "Installing virtual environment and packages"
+cd code
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r ../requirements.txt
+pip install --break-system-packages -r ../requirements.txt
 cd ..
