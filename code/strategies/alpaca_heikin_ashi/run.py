@@ -33,7 +33,7 @@ MAX_POSITIONS = 3
 RISK_PCT = 0.10  # 10% equity per trade
 STOP_LOSS_PCT = 0.05  # 5% stop loss
 TAKE_PROFIT_PCT = 0.10  # 10% take profit
-DRY_RUN = True  # True: simulate orders, False: live submit
+DRY_RUN = False  # True: simulate orders, False: live submit
 SLEEP_SEC = 60  # Check every minute
 # ============================================
 
