@@ -25,19 +25,37 @@ params = {
     'use_shorts': True,  # set to False if you want to use only longs
 }
 
-key_path = 'LiveTradingBots/secret.json'
+# --- FILE PATHS ---
+# Find secret.json relative to repo root (3 levels up from this script)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+repo_root = os.path.join(script_dir, '..', '..', '..')
+key_path = os.path.join(repo_root, 'secret.json')
 key_name = 'envelope'
 
-tracker_file = f"LiveTradingBots/code/strategies/envelope/tracker_{params['symbol'].replace('/', '-').replace(':', '-')}.json"
+tracker_file = os.path.join(script_dir, f"tracker_{params['symbol'].replace('/', '-').replace(':', '-')}.json")
 
 trigger_price_delta = 0.005  # what I use for a 1h timeframe
 # trigger_price_delta = 0.0015  # what I use for a 15m timeframe
 
 # --- AUTHENTICATION ---
 print(f"\n{datetime.now().strftime('%H:%M:%S')}: >>> starting execution for {params['symbol']}")
-with open(key_path, "r") as f:
-    api_setup = json.load(f)[key_name]
-bitget = BitgetFutures(api_setup)
+try:
+    with open(key_path, "r") as f:
+        api_setup = json.load(f)[key_name]
+    bitget = BitgetFutures(api_setup)
+    print(f"✓ Loaded Bitget credentials from {key_path}")
+except FileNotFoundError:
+    print(f"✗ ERROR: {key_path} not found. Did you run install.sh and add keys to secret.json?")
+    sys.exit(1)
+except KeyError:
+    print(f"✗ ERROR: '{key_name}' key not found in secret.json")
+    sys.exit(1)
+except json.JSONDecodeError:
+    print(f"✗ ERROR: {key_path} is not valid JSON")
+    sys.exit(1)
+except Exception as e:
+    print(f"✗ ERROR: Failed to authenticate with Bitget: {e}")
+    sys.exit(1)
 
 
 # --- TRACKER FILE ---
