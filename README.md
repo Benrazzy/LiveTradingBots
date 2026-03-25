@@ -18,6 +18,9 @@ _Use run_envelope.sh to run the bot with the virtual environment, either manuall
 - **Bitunix Bot Template** : This is a simple but all rounded bot code template that can be used to build upon. For detailed information on functionality, installation, and access to all our resources, check this [video](https://youtu.be/Xj_hBOU_7Mc).
 _Use run_bitunix_template_bot.sh to run the bot with the virtual environment, either manually or via cron. For example, the terminal command from root/home of VPS would be: bash LiveTradingBots/code/run_bitunix_bot_template.sh_
 
+- **Alpaca Heikin-Ashi Bot** : A live trading bot using Heikin-Ashi candles for stock trading on Alpaca paper account. PAPER ONLY. Requires Alpaca API keys in secret.json under 'alpaca_heikin_ashi'.
+_Use run_alpaca_heikin_ashi.sh to run the bot with the virtual environment, either manually or via cron._
+
 \
 ✅ Requirements
 -------------
