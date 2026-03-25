@@ -1,6 +1,6 @@
 # LiveTradingBots
 
-_A homemade humble library to run automated python crypto trading bots_
+_A simple automated trading bot library for live stock trading on Alpaca_
 
 \
 🛠️ Setup commands (virtual environment included)
@@ -10,24 +10,50 @@ _A homemade humble library to run automated python crypto trading bots_
 
 
 \
-⭐ Bots and strategies
+⭐ Alpaca Heikin-Ashi Bot
 -------------
-- **Complete Envelope Bot** : For detailed information on functionality, installation, and access to all our resources, including codes and explanatory videos, please visit our [article](https://robottraders.io/blog/envelope-trading-bot).
-_Use run_envelope.sh to run the bot with the virtual environment, either manually or via cron._
+A live trading bot using Heikin-Ashi candles for stock trading on **Alpaca Paper Account**. 
 
-- **Bitunix Bot Template** : This is a simple but all rounded bot code template that can be used to build upon. For detailed information on functionality, installation, and access to all our resources, check this [video](https://youtu.be/Xj_hBOU_7Mc).
-_Use run_bitunix_template_bot.sh to run the bot with the virtual environment, either manually or via cron. For example, the terminal command from root/home of VPS would be: bash LiveTradingBots/code/run_bitunix_bot_template.sh_
+**Features:**
+- Heikin-Ashi candle transformation for trend identification
+- Risk-based position sizing (configurable % of equity)
+- Stop loss and take profit automation
+- Paper trading mode (no real money)
+- Live market data streaming
 
-- **Alpaca Heikin-Ashi Bot** : A live trading bot using Heikin-Ashi candles for stock trading on Alpaca paper account. PAPER ONLY. Requires Alpaca API keys in secret.json under 'alpaca_heikin_ashi'.
-_Use run_alpaca_heikin_ashi.sh to run the bot with the virtual environment, either manually or via cron._
+**Setup:**
+1. Get an [Alpaca account](https://alpaca.markets) (paper trading is free)
+2. Generate API keys from your dashboard
+3. Add keys to `secret.json` under `alpaca_heikin_ashi`:
+   ```json
+   {
+       "alpaca_heikin_ashi": {
+           "api_key": "YOUR_KEY_HERE",
+           "secret_key": "YOUR_SECRET_HERE"
+       }
+   }
+   ```
+4. Run: `bash code/run_alpaca_heikin_ashi.sh`
+
+**Usage:**
+- Edit trading parameters in `code/strategies/alpaca_heikin_ashi/run.py` (symbol, risk %, leverage, etc.)
+- Run manually: `bash code/run_alpaca_heikin_ashi.sh`
+- Schedule on VPS via cron: `0 9 * * 1-5 bash /path/to/LiveTradingBots/code/run_alpaca_heikin_ashi.sh`
 
 \
 ✅ Requirements
 -------------
-Python 3.12.x
+Python 3.10+
 \
-See [requirements.txt](https://github.com/RobotTraders/LiveTradingBots/blob/main/requirements.txt) for the specific Python packages
+See [requirements.txt](requirements.txt) for specific packages. Install with:
+```bash
+bash install.sh
+```
 
+\
+📊 Analysis
+-------------
+Use `code/analysis/run_pnl.ipynb` to analyze P&L from completed trades.
 
 \
 📃 License
@@ -38,4 +64,4 @@ This project is licensed under the [GNU General Public License](LICENSE) - see t
 \
 ⚠️ Disclaimer
 -------------
-All this material and related videos are for educational and entertainment purposes only. It is not financial advice nor an endorsement of any provider, product or service. The user bears sole responsibility for any actions taken based on this information, and Robot Traders and its affiliates will not be held liable for any losses or damages resulting from its use. 
+This bot is for educational purposes. Paper trading means NO REAL MONEY is at risk. Use at your own risk. Robot Traders and its affiliates are not responsible for any losses. This is not financial advice. 
