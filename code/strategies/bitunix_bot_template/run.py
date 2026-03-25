@@ -397,10 +397,33 @@ if __name__ == "__main__":
     VERBOSE = True           # Control output messages
 
     # ==================
+    # Load Credentials
+    # ==================
+    import os
+    import sys
+    # Find secret.json relative to repo root (3 levels up from this script)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    repo_root = os.path.join(script_dir, '..', '..', '..')
+    key_path = os.path.join(repo_root, 'secret.json')
+    key_name = 'bitunix_bot_template'
+    
+    try:
+        with open(key_path, "r") as f:
+            key = json.load(f)[key_name]
+        print(f"✓ Loaded Bitunix credentials from {key_path}")
+    except FileNotFoundError:
+        print(f"✗ ERROR: {key_path} not found. Did you run install.sh and add keys to secret.json?")
+        sys.exit(1)
+    except KeyError:
+        print(f"✗ ERROR: '{key_name}' key not found in secret.json")
+        sys.exit(1)
+    except json.JSONDecodeError:
+        print(f"✗ ERROR: {key_path} is not valid JSON")
+        sys.exit(1)
+
+    # ==================
     # Initialize Client
     # ==================
-    with open("LiveTradingBots/code/strategies/bitunix_bot_template/credentials.json", "r") as f:
-        key = json.load(f)
 
     client = BitunixFutures(
         api_key=key.get("api_key"),
